@@ -612,6 +612,79 @@ public class FUsuarios extends javax.swing.JFrame implements MouseListener, Acti
 
     private void jLabelGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelGuardarMouseClicked
 
+        /**
+         *Se realizan las validaciones de los campos de texto*/
+        
+        if (txtUsuario.getText().trim().length() > 0) {
+            userE.setUsuario(txtUsuario.getText());
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor ingrese el Nombre de Usuario", "Datos Faltantes", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (txtClave.getText().trim().length() > 0) {
+            userE.setClave(txtClave.getText());
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor ingrese la Clave", "Datos Faltantes", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (txtClave.getText().trim().length() < 10) {
+            JOptionPane.showMessageDialog(null, "La Clave debe ser mayor de 10 caracteres", "Datos Incompletos", JOptionPane.ERROR_MESSAGE);
+        }
+
+        userE.setRol(cboPerfil.getSelectedItem().toString());
+
+        userE.setEstado(cboEstado.getSelectedItem().toString());
+
+        int dni = Integer.parseInt(txtDNI.getText());
+
+        if (txtDNI.getText().trim().length() > 0) {
+            userE.setDNI(dni);
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor ingrese el DNI", "Datos Faltantes", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (txtNombre.getText().trim().length() > 0) {
+            userE.setNombre(txtNombre.getText());
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor ingrese el Nombre propio", "Datos Faltantes", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (txtApellido.getText().trim().length() > 0) {
+            userE.setApellido(txtApellido.getText());
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor ingrese el Apellido", "Datos Faltantes", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (txtCorreo.getText().trim() != null) {
+            userE.setCorreo(txtCorreo.getText());
+        } else {
+            userE.setCorreo("Sin correo");
+        }
+
+        userE.setNext(null);
+
+        boolean respuesta;
+
+        try {
+            respuesta = userN.guardarUsuario(userE);
+            if (respuesta) {
+                if (cboPerfil.getSelectedItem().equals("Administrador")) {
+                    JOptionPane.showMessageDialog(null, "Se ha guardado satisfactoriamente un usuario en el sistema como Administrador", "Guardado", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Se ha guardado satisfactoriamente un usuario en el sistema como Empleado", "Guardado", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "El usuario ya existe", "Guardado", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(FUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_jLabelGuardarMouseClicked
 
     private void jLabelEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelEditarMouseClicked
