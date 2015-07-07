@@ -33,7 +33,6 @@ public class FUsuarios extends javax.swing.JFrame implements MouseListener, Acti
     /**
      * Creates new form FUsuarios
      */
-
     UsuarioNegocio userN = new UsuarioNegocio();
     EntUsuario userE = new EntUsuario();
 
@@ -47,9 +46,8 @@ public class FUsuarios extends javax.swing.JFrame implements MouseListener, Acti
         jLabelEliminar.setOpaque(true);
         jLabelLimpiar.setOpaque(true);
         setIconImage(new ImageIcon(getClass().getResource("/com/mallas/imagenes/Desktop Icon.png")).getImage());
-        
+
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -620,7 +618,13 @@ public class FUsuarios extends javax.swing.JFrame implements MouseListener, Acti
         }
 
         if (txtClave.getText().trim().length() > 0) {
-            userE.setClave(txtClave.getText());
+            if (txtUsuario.getText().trim().equals(txtClave.getText().trim()) || txtDNI.getText().trim().equals(txtClave.getText().trim())
+                    || txtNombre.getText().trim().equals(txtClave.getText().trim()) || txtApellido.getText().trim().equals(txtClave.getText().trim())) {
+                JOptionPane.showMessageDialog(null, "La clave no puede ser igual al nombre de usuario, DNI, nombre ni apellido", "Datos Faltantes", JOptionPane.ERROR_MESSAGE);
+                return;
+            }else{
+                userE.setClave(txtClave.getText());
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Por favor ingrese la Clave", "Datos Faltantes", JOptionPane.ERROR_MESSAGE);
             return;
@@ -662,8 +666,6 @@ public class FUsuarios extends javax.swing.JFrame implements MouseListener, Acti
         } else {
             userE.setCorreo("Sin correo");
         }
-
-        userE.setNext(null);
 
         boolean respuesta;
 
